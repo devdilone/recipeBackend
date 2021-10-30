@@ -18,7 +18,6 @@ public class RecipeApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-	
 	}
 
 }
