@@ -1,7 +1,9 @@
 package com.portfolio.recipe.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.portfolio.recipe.dto.DownloadDTO;
 import com.portfolio.recipe.dto.IngredientDTO;
 import com.portfolio.recipe.dto.IngredientLikeDTO;
 import com.portfolio.recipe.dto.RecipeDTO;
@@ -13,7 +15,7 @@ import com.portfolio.recipe.dto.TagLikeDTO;
 import com.portfolio.recipe.dto.UserDTO;
 
 public interface UtilService {
-	public String downloadDatabase();
+	public String downloadDatabase(ArrayList<DownloadDTO> dtos);
 	public void saveRecipes(List<RecipeDTO> dtoList);
 	public void saveIngredients(List<IngredientDTO> dtoList);
 	public void saveIngredientLikes(List<IngredientLikeDTO> dtoList);
@@ -23,5 +25,6 @@ public interface UtilService {
 	public void saveTagLikes(List<TagLikeDTO> dtoList);
 	public void saveUsers(List<UserDTO> dtoList);
 	public void saveSavedRecipes(List<SavedRecipeDTO> dtoList);
-	
+	public RecipeDTO fetchRecipe(RecipeDTO dto);
+	public List<RecipeDTO> fetchAllRecipes();
 }

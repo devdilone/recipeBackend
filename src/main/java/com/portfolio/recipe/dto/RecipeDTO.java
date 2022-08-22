@@ -6,24 +6,34 @@ public class RecipeDTO {
 	private Integer recipeid;
 	private String name;
 	private String img;
+	private String recipeType;
+
+	public String getRecipeType() {
+		return recipeType;
+	}
+	public void setRecipeType(String recipeType) {
+		this.recipeType = recipeType;
+	}
 	
 	public RecipeDTO(Recipe entity) {
 		this.recipeid = entity.getRecipeid();
 		this.name = entity.getName();
 		this.img = entity.getImg();
+		this.recipeType = entity.getRecipeType();
 	}
 	
 	public RecipeDTO() {
 		super();
 	}
 
-	public RecipeDTO(Integer recipeid, String name, String img) {
+
+	public RecipeDTO(Integer recipeid, String name, String img, String recipeType) {
 		super();
 		this.recipeid = recipeid;
 		this.name = name;
 		this.img = img;
+		this.recipeType = recipeType;
 	}
-
 	public Integer getRecipeid() {
 		return recipeid;
 	}
@@ -42,8 +52,15 @@ public class RecipeDTO {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	public Recipe toEntity(RecipeDTO dto) {
+	public static Recipe toEntity(RecipeDTO dto) {
 		return new Recipe(dto);
 	}
+	@Override
+	public String toString() {
+		return "RecipeDTO [recipeid=" + recipeid + ", name=" + name + ", img=" + img + ", recipeType=" + recipeType
+				+ "]";
+	}
+	
+	
 	
 }

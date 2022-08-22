@@ -41,7 +41,7 @@ public class IngredientDTO {
 		this.type = type;
 	}
 	
-	public Ingredient toEntity(IngredientDTO dto) {
+	public static Ingredient toEntity(IngredientDTO dto) {
 		return new Ingredient(dto);
 	}
 	

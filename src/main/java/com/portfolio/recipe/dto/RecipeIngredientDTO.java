@@ -42,7 +42,7 @@ public class RecipeIngredientDTO {
 		this.ingredientId = ingredientId;
 	}
 	
-	public RecipeIngredient toEntity(RecipeIngredientDTO dto) {
+	public static RecipeIngredient toEntity(RecipeIngredientDTO dto) {
 		return new RecipeIngredient(dto);
 	}
 	

@@ -1,6 +1,9 @@
 package com.portfolio.recipe.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.portfolio.recipe.dto.IngredientDTO;
@@ -12,7 +15,9 @@ public class Ingredient {
 		return "Ingredient [ingredientid=" + ingredientid + ", name=" + name + ", type=" + type + "]";
 	}
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer ingredientid;
+	@Column(nullable = true)
 	private String name;
 	private String type;
 

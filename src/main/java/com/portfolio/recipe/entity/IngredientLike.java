@@ -2,6 +2,8 @@ package com.portfolio.recipe.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,6 +21,7 @@ public class IngredientLike {
 
 @Id
 @Column(name = "ingredient_likesid")
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private Integer ingredientLikesId;
 @Column(name="userid")
 private Integer userId;

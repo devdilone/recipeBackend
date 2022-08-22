@@ -2,6 +2,8 @@ package com.portfolio.recipe.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,6 +20,7 @@ public class TagLike {
 
 @Id
 @Column(name="tag_likeid")
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private Integer tagLikeId;
 @Column(name="tagid")
 private Integer tagId;

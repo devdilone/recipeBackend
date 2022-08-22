@@ -39,7 +39,7 @@ public class TagDTO {
 		this.name = entity.getName();
 		this.type = entity.getType();
 	}
-	public Tag toEntity(TagDTO dto) {
+	public static Tag toEntity(TagDTO dto) {
 		return new Tag(dto);
 	}
 	

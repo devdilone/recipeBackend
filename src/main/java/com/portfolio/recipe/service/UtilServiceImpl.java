@@ -2,9 +2,13 @@ package com.portfolio.recipe.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
 
+import com.portfolio.recipe.dto.DownloadDTO;
 import com.portfolio.recipe.dto.IngredientDTO;
 import com.portfolio.recipe.dto.IngredientLikeDTO;
 import com.portfolio.recipe.dto.RecipeDTO;
@@ -33,6 +37,7 @@ import com.portfolio.recipe.repo.TagLikeRepo;
 import com.portfolio.recipe.repo.TagRepo;
 import com.portfolio.recipe.repo.UserRepo;
 
+@Service
 public class UtilServiceImpl implements UtilService{
 
 	@Autowired
@@ -56,8 +61,55 @@ public class UtilServiceImpl implements UtilService{
 	
 
 	@Override
-	public String downloadDatabase() {
-		return null;
+	public String downloadDatabase(ArrayList<DownloadDTO> dtos) {
+		for(DownloadDTO dto:dtos) {
+//			check for null name value
+			
+//			save the recipe R
+			System.out.println("saving recipe " + dto.getDownloadDTORecipe());
+			Recipe savedRecipe = recipeRepo.save(RecipeDTO.toEntity(dto.getDownloadDTORecipe()));
+			
+//			save ingredients I belonging to R
+			for(IngredientDTO ingrDto: dto.getDownloadDTOIngredientList()) {
+				System.out.println("saving ingredient");
+				Ingredient ingrEntity = IngredientDTO.toEntity(ingrDto);
+//				Example<Ingredient> exIngr = Example.of(ingrEntity);
+//				Optional<Ingredient> ingrOptional =ingredientRepo.findOne(exIngr);
+				Ingredient savedIngredient;
+//				if(ingrOptional.isEmpty()) {
+					savedIngredient = ingredientRepo.save(ingrEntity);
+//				}else {
+//					savedIngredient = ingrOptional.get();
+//				}
+				
+//				save the connections between I and R
+				RecipeIngredientDTO recIngrDTO = new RecipeIngredientDTO(null,savedRecipe.getRecipeid(),savedIngredient.getIngredientid());
+				recIngrRepo.save(RecipeIngredientDTO.toEntity(recIngrDTO));
+			}
+			
+//			save all tags T, making sure your not saving tags that already exist
+			for(TagDTO tagDTO : dto.getDownloadDTOTagList()) {
+				System.out.println("saving tag");
+				Tag tagEntity = TagDTO.toEntity(tagDTO);
+//				Example<Tag> exTag = Example.of(tagEntity);
+//				Optional<Tag> tagOptional = tagRepo.findOne(exTag);
+				
+				Tag savedTag;
+//				if(tagOptional.isEmpty()) {
+					savedTag = tagRepo.save(tagEntity);
+//				}else {
+//					savedTag = tagOptional.get();
+//				}
+
+//				save the connections between T and R
+				RecipeTagDTO recTagDTO = new RecipeTagDTO(null, savedTag.getTagId(), savedRecipe.getRecipeid());
+				recipeTagRepo.save(RecipeTagDTO.toEntity(recTagDTO));
+			}
+			
+
+		}
+		
+		return "downloaded DTOs";
 	}
 
 
@@ -160,7 +212,21 @@ public class UtilServiceImpl implements UtilService{
 	}
 
 
+	@Override
+	public RecipeDTO fetchRecipe(RecipeDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
-
+	@Override
+	public List<RecipeDTO> fetchAllRecipes() {
+		List<Recipe> recipeList = recipeRepo.findAll();
+		List<RecipeDTO> dtoList = new ArrayList<RecipeDTO>();
+		for(Recipe recipe : recipeList) {
+			RecipeDTO dtoToAdd = recipe.toDTO(recipe);
+			dtoList.add(dtoToAdd);
+		}
+		return dtoList;
+	}
 }

@@ -2,6 +2,8 @@ package com.portfolio.recipe.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.portfolio.recipe.dto.TagDTO;
@@ -15,7 +17,9 @@ public class Tag {
 
 @Id
 @Column(name = "tagid")
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private Integer tagId;
+@Column(nullable = true)
 private String name;
 private String type;
 public Tag(TagDTO dto) {

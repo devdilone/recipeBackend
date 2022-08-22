@@ -43,7 +43,7 @@ public class RecipeTagDTO {
 		this.recipeId = recipeId;
 	}
 	
-	public RecipeTag toEntity(RecipeTagDTO dto) {
+	public static RecipeTag toEntity(RecipeTagDTO dto) {
 		return new RecipeTag(dto);
 	}
 }
